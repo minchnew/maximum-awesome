@@ -8,7 +8,8 @@ if (&t_Co == 256 || has('gui_running'))
   if ($TERM_PROGRAM == 'iTerm.app')
     colorscheme solarized
   else
-    colorscheme desert
+    set background=dark
+    colorscheme solarized
   endif
 endif
 
@@ -27,3 +28,74 @@ function! s:RemoveConflictingAlignMaps()
 endfunction
 command! -nargs=0 RemoveConflictingAlignMaps call s:RemoveConflictingAlignMaps()
 silent! autocmd VimEnter * RemoveConflictingAlignMaps
+
+" General {
+      set history=100
+" }
+
+" Vim UI {
+      if has('statusline')
+          set laststatus=2
+          set statusline=%F%m%r%h%w\ FORMAT=[%{&ff}]\ TYPE=%y\ %4l,%-4v\ %L\ lines\ --%p%%--
+      endif
+      set nonumber
+      set backspace=indent,eol,start    " backspace for dummys
+      set showmatch
+      set hlsearch
+      set wildmode=list:longest,full
+      set whichwrap=b,s,h,l,<,>,[,]    " backspace and cursor keys wrap to
+      set scrolljump=1    " lines to scroll when cursor leaves screen
+      set scrolloff=0
+      set foldenable
+" }
+
+" Folding {
+    set foldmethod=syntax
+    set foldlevel=20
+    set foldlevelstart=20
+" }
+
+" Formatting {
+    set shiftwidth=4
+    set expandtab
+    set tabstop=4
+    set softtabstop=0
+" }
+
+" Key (re)Mappings {
+    " For when you forget to sudo.. Really Write the file.
+    cmap w!! w !sudo tee % >/dev/null
+" }
+
+" Plugins {
+    " Ctags {
+      " This will look in the current directory for 'tags', and work up the tree towards root until one is found. 
+      set tags=./tags,tags,$HOME/vimtags
+      map <F10> <C-W>g}
+    " }
+
+    " SnipMate {
+        " Setting the author var
+        " If forking, please overwrite in your .vimrc.local file
+        let g:snips_author = 'Chen Min <minchnew@gmail.com>'
+        " Shortcut for reloading snippets, useful when developing
+        nnoremap ,smr <esc>:exec ReloadAllSnippets()<cr>
+    " }
+
+    " NerdTree {
+        " nnoremap <silent> <F12> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
+        map <leader>e :NERDTreeFind<CR>
+        nmap <leader>nt :NERDTreeFind<CR>
+
+        let NERDTreeShowBookmarks=1
+        let NERDTreeIgnore=['tags', 'cscope\..*', '\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
+        let NERDTreeShowHidden=1
+        let NERDTreeDirArrows=0
+    " }
+
+    " Tagbar {
+        " nnoremap <silent> <F11> :TagbarToggle<CR>
+        let g:tagbar_width = 31
+        let g:tagbar_iconchars = ['+', '-']
+    " }
+" }
