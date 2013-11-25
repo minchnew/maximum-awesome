@@ -6,3 +6,4 @@ Bundle 'Rip-Rip/clang_complete'
 " Perform all your vim insert mode completions with Tab
 Bundle 'ervandew/supertab'
 Bundle 'vim-scripts/AutoComplPop'
+Bundle 'klen/python-mode'
