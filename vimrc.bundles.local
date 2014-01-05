@@ -2,7 +2,8 @@
 Bundle 'scrooloose/nerdcommenter'
 " This plugin use clang for accurately completeing C,C++,Objective-C and
 " Objective-C++ code.
-Bundle 'Rip-Rip/clang_complete'
+" Bundle 'Rip-Rip/clang_complete'
 " Perform all your vim insert mode completions with Tab
 Bundle 'ervandew/supertab'
 Bundle 'vim-scripts/AutoComplPop'
+Bundle 'klen/python-mode'
