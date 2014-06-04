@@ -1,10 +1,25 @@
 ENV['HOMEBREW_CASK_OPTS'] = "--appdir=/Applications"
 
-def brew_install(package, *options)
-  `brew list #{package}`
-  return if $?.success?
+def brew_install(package, *args)
+  versions = `brew list #{package} --versions`
+  options = args.last.is_a?(Hash) ? args.pop : {}
 
-  sh "brew install #{package} #{options.join ' '}"
+  # if brew exits with error we install tmux
+  if versions.empty?
+    sh "brew install #{package} #{args.join ' '}"
+  elsif options[:requires]
+    # brew did not error out, verify tmux is greater than 1.8
+    # e.g. brew_tmux_query = 'tmux 1.9a'
+    installed_version = versions.split(/\n/).first.split(' ')[1]
+    unless version_match?(options[:version], installed_version)
+      sh "brew upgrade #{package} #{args.join ' '}"
+    end
+  end
+end
+
+def version_match?(requirement, version)
+  # This is a hack, but it lets us avoid a gem dep for version checking.
+  Gem::Dependency.new('', requirement).match?('', version)
 end
 
 def install_github_bundle(user, package)
@@ -75,11 +90,36 @@ def link_file(original_filename, symlink_filename)
   ln_s original_path, symlink_path, :verbose => true
 end
 
+def unlink_file(original_filename, symlink_filename)
+  original_path = File.expand_path(original_filename)
+  symlink_path = File.expand_path(symlink_filename)
+  if File.symlink?(symlink_path)
+    symlink_points_to_path = File.readlink(symlink_path)
+    if symlink_points_to_path == original_path
+      # the symlink is installed, so we should uninstall it
+      rm_f symlink_path, :verbose => true
+      backups = Dir["#{symlink_path}*.bak"]
+      case backups.size
+      when 0
+        # nothing to do
+      when 1
+        mv backups.first, symlink_path, :verbose => true
+      else
+        $stderr.puts "found #{backups.size} backups for #{symlink_path}, please restore the one you want."
+      end
+    else
+      $stderr.puts "#{symlink_path} does not point to #{original_path}, skipping."
+    end
+  else
+    $stderr.puts "#{symlink_path} is not a symlink, skipping."
+  end
+end
+
 namespace :install do
   desc 'Update or Install Brew'
   task :brew do
     step 'Homebrew'
-    unless system('which brew > /dev/null || ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go)"')
+    unless system('which brew > /dev/null || ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"')
       raise "Homebrew must be installed before continuing."
     end
   end
@@ -123,7 +163,8 @@ namespace :install do
   desc 'Install tmux'
   task :tmux do
     step 'tmux'
-    brew_install 'tmux'
+    # tmux copy-pipe function needs tmux >= 1.8
+    brew_install 'tmux', :requires => '>= 1.8'
   end
 
   desc 'Install MacVim'
@@ -158,12 +199,32 @@ exec /Applications/MacVim.app/Contents/MacOS/Vim "$@"
   task :vundle do
     step 'vundle'
     install_github_bundle 'gmarik','vundle'
-    sh 'vim -c "BundleInstall" -c "q" -c "q"'
+    sh '~/bin/vim -c "BundleInstall" -c "q" -c "q"'
   end
 end
 
+def filemap(map)
+  map.inject({}) do |result, (key, value)|
+    result[File.expand_path(key)] = File.expand_path(value)
+    result
+  end.freeze
+end
+
+COPIED_FILES = filemap(
+  'vimrc.local'         => '~/.vimrc.local',
+  'vimrc.bundles.local' => '~/.vimrc.bundles.local',
+  'tmux.conf.local'     => '~/.tmux.conf.local'
+)
+
+LINKED_FILES = filemap(
+  'vim'           => '~/.vim',
+  'tmux.conf'     => '~/.tmux.conf',
+  'vimrc'         => '~/.vimrc',
+  'vimrc.bundles' => '~/.vimrc.bundles'
+)
+
 desc 'Install these config files.'
-task :default do
+task :install do
   Rake::Task['install:brew'].invoke
   Rake::Task['install:brew_cask'].invoke
   Rake::Task['install:the_silver_searcher'].invoke
@@ -177,15 +238,13 @@ task :default do
   # TODO run gem ctags?
 
   step 'symlink'
-  link_file 'vim'                   , '~/.vim'
-  link_file 'tmux.conf'             , '~/.tmux.conf'
-  link_file 'vimrc'                 , '~/.vimrc'
-  link_file 'vimrc.bundles'         , '~/.vimrc.bundles'
-  unless File.exist?(File.expand_path('~/.vimrc.local'))
-    cp File.expand_path('vimrc.local'), File.expand_path('~/.vimrc.local'), :verbose => true
+
+  LINKED_FILES.each do |orig, link|
+    link_file orig, link
   end
-  unless File.exist?(File.expand_path('~/.vimrc.bundles.local'))
-    cp File.expand_path('vimrc.bundles.local'), File.expand_path('~/.vimrc.bundles.local'), :verbose => true
+
+  COPIED_FILES.each do |orig, copy|
+    cp orig, copy, :verbose => true unless File.exist?(copy)
   end
 
   # Install Vundle and bundles
@@ -210,3 +269,36 @@ task :default do
   puts "  Enjoy!"
   puts
 end
+
+desc 'Uninstall these config files.'
+task :uninstall do
+  step 'un-symlink'
+
+  # un-symlink files that still point to the installed locations
+  LINKED_FILES.each do |orig, link|
+    unlink_file orig, link
+  end
+
+  # delete unchanged copied files
+  COPIED_FILES.each do |orig, copy|
+    rm_f copy, :verbose => true if File.read(orig) == File.read(copy)
+  end
+
+  step 'homebrew'
+  puts
+  puts 'Manually uninstall homebrew if you wish: https://gist.github.com/mxcl/1173223.'
+
+  step 'iterm2'
+  puts
+  puts 'Run this to uninstall iTerm:'
+  puts
+  puts '  rm -rf /Applications/iTerm.app'
+
+  step 'macvim'
+  puts
+  puts 'Run this to uninstall MacVim:'
+  puts
+  puts '  rm -rf /Applications/MacVim.app'
+end
+
+task :default => :install
