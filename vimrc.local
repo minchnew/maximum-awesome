@@ -11,6 +11,9 @@ if (&t_Co == 256 || has('gui_running'))
     set background=dark
     colorscheme solarized
   endif
+else
+  set background=dark
+  colorscheme solarized
 endif
 
 " Disambiguate ,a & ,t from the Align plugin, making them fast again.
@@ -50,7 +53,7 @@ silent! autocmd VimEnter * RemoveConflictingAlignMaps
 " }
 
 " Folding {
-    set foldmethod=syntax
+    set foldmethod=manual
     set foldlevel=20
     set foldlevelstart=20
 " }
