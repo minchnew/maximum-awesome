@@ -1,9 +1,10 @@
-" Vim plugin for intensely orgasmic commenting
-Bundle 'scrooloose/nerdcommenter'
-" This plugin use clang for accurately completeing C,C++,Objective-C and
-" Objective-C++ code.
-" Bundle 'Rip-Rip/clang_complete'
-" Perform all your vim insert mode completions with Tab
-Bundle 'ervandew/supertab'
-Bundle 'vim-scripts/AutoComplPop'
-Bundle 'klen/python-mode'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'Shutnik/jshint2.vim' " OR Plugin 'wookiehangover/jshint.vim'
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'tomtom/tlib_vim'
+Plugin 'garbas/vim-snipmate'
+Plugin 'honza/vim-snippets'
+Plugin 'moll/vim-node'
+Plugin 'digitaltoad/vim-jade'
+Plugin 'marijnh/tern_for_vim'
+Plugin 'Valloric/YouCompleteMe'

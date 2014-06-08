@@ -127,8 +127,8 @@ namespace :install do
   desc 'Install Homebrew Cask'
   task :brew_cask do
     step 'Homebrew Cask'
-    unless system('brew tap | grep phinze/cask > /dev/null') || system('brew tap phinze/homebrew-cask')
-      abort "Failed to tap phinze/homebrew-cask in Homebrew."
+    unless system('brew tap | grep caskroom/cask > /dev/null') || system('brew tap caskroom/homebrew-cask')
+      abort "Failed to tap caskroom/homebrew-cask in Homebrew."
     end
 
     brew_install 'brew-cask'
@@ -189,7 +189,7 @@ namespace :install do
       File.open(bin_vim, 'w', 0744) do |io|
         io << <<-SHELL
 #!/bin/bash
-exec /Applications/MacVim.app/Contents/MacOS/Vim "$@"
+exec ~/Applications/MacVim.app/Contents/MacOS/Vim "$@"
         SHELL
       end
     end
@@ -198,8 +198,8 @@ exec /Applications/MacVim.app/Contents/MacOS/Vim "$@"
   desc 'Install Vundle'
   task :vundle do
     step 'vundle'
-    install_github_bundle 'gmarik','vundle'
-    sh '~/bin/vim -c "BundleInstall" -c "q" -c "q"'
+    install_github_bundle 'gmarik','Vundle.vim'
+    sh '~/bin/vim +PluginInstall +qall'
   end
 end
 
