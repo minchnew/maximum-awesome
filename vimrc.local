@@ -77,12 +77,10 @@ silent! autocmd VimEnter * RemoveConflictingAlignMaps
       map <F10> <C-W>g}
     " }
 
-    " SnipMate {
-        " Setting the author var
-        " If forking, please overwrite in your .vimrc.local file
-        let g:snips_author = 'Chen Min <minchnew@gmail.com>'
-        " Shortcut for reloading snippets, useful when developing
-        nnoremap ,smr <esc>:exec ReloadAllSnippets()<cr>
+    " UltiSnip {
+        let g:UltiSnipsExpandTrigger="<C-\>"
+        let g:UltiSnipsJumpForwardTrigger="<C-b>"
+        let g:UltiSnipsJumpBackwardTrigger="<C-z>"
     " }
 
     " NerdTree {
