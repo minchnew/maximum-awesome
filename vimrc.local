@@ -82,8 +82,8 @@ silent! autocmd VimEnter * RemoveConflictingAlignMaps
     " }
 
     " UltiSnip {
-        let g:UltiSnipsExpandTrigger="<CR>"
-        let g:UltiSnipsJumpForwardTrigger="<CR>"
+        let g:UltiSnipsExpandTrigger="<C-l>"
+        let g:UltiSnipsJumpForwardTrigger="<C-l>"
         let g:UltiSnipsJumpBackwardTrigger="<C-k>"
     " }
 
