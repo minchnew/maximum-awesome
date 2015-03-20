@@ -26,6 +26,7 @@ set backspace=2                                              " Fix broken backsp
 set backupcopy=yes                                           " see :help crontab
 set clipboard=unnamed                                        " yank and paste with the system clipboard
 set directory-=.                                             " don't store swapfiles in the current directory
+set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936,default,latin1
 set encoding=utf-8
 set expandtab                                                " expand tabs to spaces
 set ignorecase                                               " case-insensitive search
