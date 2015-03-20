@@ -1,0 +1,47 @@
+; For Linux
+[color]
+    diff = auto
+    status = auto
+    branch = auto
+    ui = true
+[user]
+    name = Min Chen
+    email = minchnew@gmail.com
+[core]
+    editor = vim
+[credential]
+    helper = cache --timeout=3600
+[alias]
+    co = checkout
+    ci = commit
+    st = status
+    br = branch
+    hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+    type = cat-file -t
+    dump = cat-file -p
+[sendemail]
+    smtpencryption = ssl
+    smtpserver = 74.125.28.108
+    smtpuser = minchnew@gmail.com
+    smtpserverport = 465
+
+; For Mac
+;[user]
+        ;name = Min Chen
+        ;email = minchnew@gmail.com
+;[color]
+        ;ui = true
+;[core]
+        ;editor = vim
+        ;autocrlf = input
+        ;safecrlf = true
+;[credential]
+        ;helper = osxkeychain
+;[alias]
+  ;co = checkout
+  ;ci = commit
+  ;st = status
+  ;br = branch
+  ;hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+  ;type = cat-file -t
+  ;dump = cat-file -p
