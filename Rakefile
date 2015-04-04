@@ -189,7 +189,7 @@ namespace :install do
       File.open(bin_vim, 'w', 0744) do |io|
         io << <<-SHELL
 #!/bin/bash
-exec ~/Applications/MacVim.app/Contents/MacOS/Vim "$@"
+exec /Applications/MacVim.app/Contents/MacOS/Vim "$@"
         SHELL
       end
     end
