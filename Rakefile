@@ -223,7 +223,8 @@ LINKED_FILES = filemap(
   'vimrc'         => '~/.vimrc',
   'vimrc.bundles' => '~/.vimrc.bundles',
   'gitconfig'         => '~/.gitconfig',
-  'profile'         => '~/.profile'
+  'profile'         => '~/.profile',
+  'tern-project'         => '~/.tern-project'
 )
 
 desc 'Install these config files.'
