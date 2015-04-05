@@ -1,0 +1,33 @@
+[user]
+    name = Min Chen
+    email = minchnew@gmail.com
+[color]
+    ui = true
+[core]
+    editor = vim
+    autocrlf = input
+    safecrlf = true
+[credential]
+    helper = osxkeychain
+[alias]
+    co = checkout
+    ci = commit
+    st = status
+    br = branch
+    hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+    type = cat-file -t
+    dump = cat-file -p
+[sendemail]
+    smtpencryption = tls
+    smtpserver = smtp.gmail.com
+    smtpuser = minchnew@gmail.com
+    smtpserverport = 587
+    from = minchnew@gmail.com
+[filter "media"]
+    required = true
+    clean = git media clean %f
+    smudge = git media smudge %f
+[filter "hawser"]
+    clean = git hawser clean %f
+    smudge = git hawser smudge %f
+    required = true

@@ -221,7 +221,9 @@ LINKED_FILES = filemap(
   'vim'           => '~/.vim',
   'tmux.conf'     => '~/.tmux.conf',
   'vimrc'         => '~/.vimrc',
-  'vimrc.bundles' => '~/.vimrc.bundles'
+  'vimrc.bundles' => '~/.vimrc.bundles',
+  'gitconfig'         => '~/.gitconfig',
+  'profile'         => '~/.profile'
 )
 
 desc 'Install these config files.'
