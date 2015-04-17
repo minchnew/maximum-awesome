@@ -34,3 +34,7 @@ export CLICOLOR=1
 PATH=~/bin:/usr/local/share/python:/usr/local/bin:$PATH
 source /usr/local/Library/Contributions/brew_bash_completion.sh
 alias ls='ls -G'
+
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+    . $(brew --prefix)/etc/bash_completion
+fi
