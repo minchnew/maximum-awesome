@@ -104,4 +104,8 @@ silent! autocmd VimEnter * RemoveConflictingAlignMaps
         let g:tagbar_width = 31
         let g:tagbar_iconchars = ['+', '-']
     " }
+
+    " vim-jsx {
+        let g:jsx_ext_required = 0
+    " }
 " }
