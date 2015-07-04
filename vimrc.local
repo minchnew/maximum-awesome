@@ -94,7 +94,7 @@ silent! autocmd VimEnter * RemoveConflictingAlignMaps
         nmap <leader>nt :NERDTreeFind<CR>
 
         let NERDTreeShowBookmarks=1
-        let NERDTreeIgnore=['tags', 'cscope\..*', '\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
+        let NERDTreeIgnore=['tags', 'cscope\..*', '\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr', '\.DS_Store$']
         let NERDTreeShowHidden=1
         let NERDTreeDirArrows=0
     " }
