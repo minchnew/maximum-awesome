@@ -17,6 +17,7 @@
     hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
     type = cat-file -t
     dump = cat-file -p
+    report = "log --pretty=oneline --abbrev-commit --author 陈敏 --since='1 week ago'"
 [sendemail]
     smtpencryption = tls
     smtpserver = smtp.gmail.com
