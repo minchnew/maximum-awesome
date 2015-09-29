@@ -14,7 +14,7 @@ shopt -s checkwinsize
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-PS1="\[\e[1;30;47m\]| \u @ \w \[\e[0m\]\n\[\e[1;36m\]| => \[\e[0m\]"
+# PS1="\[\e[1;30;47m\]| \u @ \w \[\e[0m\]\n\[\e[1;36m\]| => \[\e[0m\]"
 
 # aliases
 # alias ls='ls --color=auto'
@@ -38,3 +38,5 @@ alias ls='ls -G'
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
     . $(brew --prefix)/etc/bash_completion
 fi
+
+# . ~/bin/z.sh
