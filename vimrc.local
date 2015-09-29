@@ -108,4 +108,11 @@ silent! autocmd VimEnter * RemoveConflictingAlignMaps
     " vim-jsx {
         let g:jsx_ext_required = 0
     " }
+
+    " fugitive {
+        nnoremap <leader>gs :Gstatus<CR>
+        nnoremap <leader>gd :Gdiff<CR>
+        nnoremap <leader>gw :Gwrite<CR>
+        nnoremap <leader>gc :Gcommit<CR>
+    " }
 " }
