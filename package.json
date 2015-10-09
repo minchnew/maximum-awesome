@@ -1,0 +1,31 @@
+{
+  "name": "maximum-awesome",
+  "version": "1.0.0",
+  "description": "Config files for vim and tmux, lovingly tended by a small subculture of peace-loving hippies. Built for Mac OS X.",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/minchnew/maximum-awesome.git"
+  },
+  "keywords": [
+    "ide",
+    "vim",
+    "mac"
+  ],
+  "author": "Chen Min",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/minchnew/maximum-awesome/issues"
+  },
+  "homepage": "https://github.com/minchnew/maximum-awesome#readme",
+  "devDependencies": {
+    "babel": "^5.8.23",
+    "babel-core": "^5.8.25"
+  },
+  "dependencies": {
+    "gulp": "^3.9.0"
+  }
+}
